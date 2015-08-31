@@ -1,8 +1,8 @@
 """
 Copyright (C) 2015 The HDF Group
 
-This example code illustrates how to access and visualize a OBPG CZCS Grid 
-HDF4 file in Python (PyHDF).
+This example code illustrates how to access and visualize an OBPG MODIS Aqua 
+(MODISA) Grid HDF4 file in Python (PyHDF).
 
 If you have any questions, suggestions, or comments on this example, please use
 the HDF-EOS Forum (http://hdfeos.org/forums).  If you would like to see an
@@ -13,7 +13,7 @@ contact us at eoshelp@hdfgroup.org or post it at the HDF-EOS Forum
 
 Usage:  save this script and run
 
-    python C19860011986008.L3m_8D_CHLO_4.hdf.py
+    python A20021612002192.L3m_R32_NSST_4.hdf.py
 
 The HDF4 file must be in your current working directory 
 where the Python script resides.
@@ -30,7 +30,7 @@ import numpy as np
 from pyhdf.SD import SD, SDC
 
 # Open HDF4 file.
-FILE_NAME = 'C19860011986008.L3m_8D_CHLO_4.hdf'
+FILE_NAME = 'A20021612002192.L3m_R32_NSST_4.hdf'
 hdf = SD(FILE_NAME, SDC.READ)
 
 # The lat and lon should be calculated using lat and lon of southwest point.
@@ -73,14 +73,7 @@ dataf[dataf==fv] = np.nan
 attrs = data.attributes(full=1)
 scale = attrs['Slope']
 offset = attrs['Intercept']
-base = attrs['Base']
 dataf = dataf*scale[0] + offset[0]
-dataf = np.power(float(base[0]),  dataf)
-
-# We limit the maximum value to 1 to match the NASA chlorophyll image in [1].
-# Althogh the value ranges from 0.01 to 65 and most values are very small.
-dataf[dataf > 1.0] = np.nan
-dataf[dataf < 0.0] = np.nan
 dataf = np.ma.masked_array(dataf, np.isnan(dataf))
 
 # Draw an equidistant cylindrical projection using the low resolution
@@ -110,5 +103,3 @@ fig = plt.gcf()
 pngfile = "{0}.py.png".format(FILE_NAME)
 fig.savefig(pngfile)
 
-# Reference
-# [1] http://oceancolor.gsfc.nasa.gov/ANALYSIS/PROCTEST/cr01_sr051/deep_chlor_a_images.html
