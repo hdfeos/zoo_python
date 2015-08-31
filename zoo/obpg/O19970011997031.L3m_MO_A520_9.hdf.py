@@ -13,7 +13,7 @@ contact us at eoshelp@hdfgroup.org or post it at the HDF-EOS Forum
 
 Usage:  save this script and run
 
-    python O1996306152450.L2_GAC.hdf.py
+    python O19970011997031.L3m_MO_A520_9.hdf.py
 
 The OCTS file must be in your current working directory.
 
