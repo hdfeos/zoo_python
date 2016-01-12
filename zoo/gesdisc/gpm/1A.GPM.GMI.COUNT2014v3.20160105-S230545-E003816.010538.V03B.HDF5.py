@@ -65,7 +65,7 @@ def run(FILE_NAME):
     cb.set_label(units)
 
     basename = os.path.basename(FILE_NAME)
-    plt.title('{0}\n{1}'.format(basename, name+' (nchan1=0)'))
+    plt.title('{0}\n{1}'.format(basename, name))
     fig = plt.gcf()
     # plt.show()
     pngfile = "{0}.py.png".format(basename)
